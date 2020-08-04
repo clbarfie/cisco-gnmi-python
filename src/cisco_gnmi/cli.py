@@ -221,7 +221,7 @@ def gnmi_qos(content, cmap):
     result = {}
     c = 0
     for if_data in r:   
-        print(f'Here it is the value of r:{r}')
+       
         print(f'Value of if_data:{if_data}')
         break
         diffserv_info = if_data.get('diffserv-info')
