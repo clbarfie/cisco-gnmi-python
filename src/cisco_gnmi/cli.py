@@ -192,7 +192,7 @@ def gnmi_subscribe():
                 continue
             formatted_message = __format_message(subscribe_response)
             if args.dump_file == "stdout":
-                logging.info(formatted_message)
+                #logging.info(formatted_message)
                 #Call QoS function to search class-map
                 cmap = "Skype-VOIP"
                 print(gnmi_qos(formatted_message, cmap))
