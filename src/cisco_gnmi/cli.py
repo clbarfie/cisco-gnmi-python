@@ -229,6 +229,7 @@ def gnmi_qos(content, cmap):
         r.append(data)
     
     result = {}
+    print(f'******* PRINTING DATA:{data}')
     c = 0
     for if_data in r:   
         diffserv_info = if_data.get('diffserv-info')
