@@ -221,7 +221,7 @@ def gnmi_subscribe():
 ###########################################################################
 #  Search class-map and list statistics                                   #
 ###########################################################################
-def gnmi_qos(content, cmap):
+def gnmi_qos(content, classmap_name):
     regex = r'json_ietf_val\: (".+")'
     r = []
    
@@ -233,10 +233,7 @@ def gnmi_qos(content, cmap):
 
     c = 0
     for if_data in r[0]:  
-        if (isinstance(if_data, list)):
-            print(if_data)
-            continue
-         
+                
         diffserv_info = if_data.get('diffserv-info')
         if diffserv_info:
             if_data_result = {}
