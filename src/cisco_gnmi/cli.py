@@ -221,7 +221,7 @@ def gnmi_qos(content, cmap):
     result = {}
     c = 0
     for if_data in r:   
-    diffserv_info = if_data.get('diffserv-info')
+        diffserv_info = if_data.get('diffserv-info')
         if diffserv_info:
             if_data_result = {}
             for classifier_stats in diffserv_info:
