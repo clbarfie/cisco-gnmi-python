@@ -171,6 +171,8 @@ def gnmi_subscribe():
         kwargs["suppress_redundant"] = args.suppress_redundant
     if args.heartbeat_interval:
         kwargs["heartbeat_interval"] = args.heartbeat_interval * int(1e9)
+    if args.cmap:
+        kwargs["cmap"] = args.cmap
     try:
         logging.debug(
             "Dumping responses to %s as %s ...",
@@ -194,7 +196,7 @@ def gnmi_subscribe():
             if args.dump_file == "stdout":
                 #logging.info(formatted_message)
                 #Call QoS function to search class-map
-                cmap = "Skype-VOIP"
+             
                 print(gnmi_qos(formatted_message, cmap))
                 break
             else:
@@ -397,6 +399,16 @@ def __common_args_handler(parser):
     )
     parser.add_argument("-debug", help="Print debug messages.", action="store_true")
     parser.add_argument("-insecure", help=argparse.SUPPRESS, action="store_true")
+    ###########################################
+    # QoS add_argument 
+    parser.add_argument(
+          "-cmap",
+          help="Search class-map and return statistics.",
+          type=str,
+          action="store_true
+    )
+    #############################################
+   
     args = parser.parse_args(sys.argv[2:])
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
     args.username = input("Username: ")
