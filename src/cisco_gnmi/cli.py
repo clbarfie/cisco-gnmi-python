@@ -405,7 +405,7 @@ def __common_args_handler(parser):
           "-cmap",
           help="Search class-map and return statistics.",
           type=str,
-          action="store_true
+          action="store_true"
     )
     #############################################
    
