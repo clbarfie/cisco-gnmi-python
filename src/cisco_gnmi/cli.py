@@ -208,15 +208,42 @@ def gnmi_subscribe():
         logging.warning("Stopping on interrupt.")
     except Exception:
         logging.exception("Stopping due to exception!")
-
+###########################################################################
+#  Search class-map and list statistics                                   #
+###########################################################################
 def gnmi_qos(content, cmap):
     regex = r'json_ietf_val\: (".+")'
     r = []
     for json_str in re.findall(regex, content):
         data = json.loads(json.loads(json_str))
         r.append(data)
+    
+    result = {}
+    c = 0
+    for if_data in r:   
+    diffserv_info = if_data.get('diffserv-info')
+        if diffserv_info:
+            if_data_result = {}
+            for classifier_stats in diffserv_info:
+                if_data_result['direction'] = classifier_stats['direction']
+                if_data_result['policy-name'] = classifier_stats['policy-name']
+                classmap_stats = {}
+                # Search through the statistics
+                for stats in classifier_stats['diffserv-target-classifier-stats']:
+                    if stats['classifier-entry-name'] == classmap_name:
+                        classmap_stats[classmap_name] = {
+                            'drop-bytes': stats['queuing-stats']['drop-bytes'],
+                            'drop-bytes': stats['queuing-stats']['drop-pkts'],
+                            'parent-path': stats['parent-path']
+                            # add more stats here
+                        }
+                if_data_result['classifier-stats'] = classmap_stats
 
-    return r
+            if if_data_result:
+                result[if_data['name']] = if_data_result
+
+    return result
+  
    
 def gnmi_get():
     """Provides Get RPC usage. Assumes JSON or JSON_IETF style configurations.
