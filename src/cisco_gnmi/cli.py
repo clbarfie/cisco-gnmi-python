@@ -232,7 +232,7 @@ def gnmi_qos(content, cmap):
     result = {}
 
     c = 0
-    for if_data in r:  
+    for if_data in r[0]:  
         if (isinstance(if_data, list)):
             print(if_data)
             continue
