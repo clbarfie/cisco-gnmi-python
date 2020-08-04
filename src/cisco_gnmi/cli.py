@@ -224,6 +224,7 @@ def gnmi_subscribe():
 def gnmi_qos(content, cmap):
     regex = r'json_ietf_val\: (".+")'
     r = []
+   
     for json_str in re.findall(regex, content):
         data = json.loads(json.loads(json_str))
         r.append(data)
