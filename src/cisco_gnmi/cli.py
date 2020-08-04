@@ -401,12 +401,7 @@ def __common_args_handler(parser):
     parser.add_argument("-insecure", help=argparse.SUPPRESS, action="store_true")
     ###########################################
     # QoS add_argument 
-    parser.add_argument(
-          "-cmap",
-          help="Search class-map and return statistics.",
-          type=str,
-          action="store_true"
-    )
+    parser.add_argument("-cmap", help="Search class-map and return statistics.",action="store_true")
     #############################################
    
     args = parser.parse_args(sys.argv[2:])
