@@ -180,10 +180,7 @@ def gnmi_subscribe():
         kwargs["suppress_redundant"] = args.suppress_redundant
     if args.heartbeat_interval:
         kwargs["heartbeat_interval"] = args.heartbeat_interval * int(1e9)
-    ## QoS cmap argument ##################################################
-    if args.cmap:
-        kwargs["cmap"] = args.cmap
-    #######################################################################  
+    
     try:
         logging.debug(
             "Dumping responses to %s as %s ...",
