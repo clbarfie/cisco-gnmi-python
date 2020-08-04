@@ -197,7 +197,7 @@ def gnmi_subscribe():
                 #logging.info(formatted_message)
                 #Call QoS function to search class-map
              
-                print(gnmi_qos(formatted_message, cmap))
+                print(gnmi_qos(formatted_message, args.cmap))
                 break
             else:
                 with open(args.dump_file, "a") as dump_fd:
