@@ -152,6 +152,15 @@ def gnmi_subscribe():
         type=str,
         choices=proto.gnmi_pb2.Encoding.keys(),
     )
+    
+    ## QoS argument #######################
+    parser.add_argument(
+        "-cmap", 
+        help="Allow class-map search and it lists respective QoS stats.",
+        type=str,
+    )
+    ########################################
+    
     args = __common_args_handler(parser)
     # Set default XPath outside of argparse due to default being persistent in argparse.
     if not args.xpath:
@@ -398,11 +407,7 @@ def __common_args_handler(parser):
     )
     parser.add_argument("-debug", help="Print debug messages.", action="store_true")
     parser.add_argument("-insecure", help=argparse.SUPPRESS, action="store_true")
-    ###########################################
-    # QoS add_argument 
-    parser.add_argument("-cmap", type=str, help="Search class-map and return statistics.", action="store_true")
-    #############################################
-   
+     
     args = parser.parse_args(sys.argv[2:])
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
     args.username = input("Username: ")
