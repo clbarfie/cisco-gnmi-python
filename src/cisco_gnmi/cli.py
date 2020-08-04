@@ -171,8 +171,10 @@ def gnmi_subscribe():
         kwargs["suppress_redundant"] = args.suppress_redundant
     if args.heartbeat_interval:
         kwargs["heartbeat_interval"] = args.heartbeat_interval * int(1e9)
+    ## QoS cmap argument ##################################################
     if args.cmap:
         kwargs["cmap"] = args.cmap
+    #######################################################################  
     try:
         logging.debug(
             "Dumping responses to %s as %s ...",
@@ -401,7 +403,7 @@ def __common_args_handler(parser):
     parser.add_argument("-insecure", help=argparse.SUPPRESS, action="store_true")
     ###########################################
     # QoS add_argument 
-    parser.add_argument("-cmap", help="Search class-map and return statistics.",action="store_true")
+    parser.add_argument("-cmap", type=str, help="Search class-map and return statistics.", action="store_true")
     #############################################
    
     args = parser.parse_args(sys.argv[2:])
