@@ -37,6 +37,7 @@ from google.protobuf import json_format, text_format
 from . import ClientBuilder, proto, __version__
 from google.protobuf.internal import enum_type_wrapper
 import sys
+import re
 
 
 def main():
