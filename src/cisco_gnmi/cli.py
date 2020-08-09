@@ -207,7 +207,7 @@ def gnmi_subscribe():
                     logging.info(formatted_message)
                 else:
                     print(gnmi_qos(formatted_message, args.cmap))
-            break
+                    break
             else:
                 with open(args.dump_file, "a") as dump_fd:
                     dump_fd.write(formatted_message)
