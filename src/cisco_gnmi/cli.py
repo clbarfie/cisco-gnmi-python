@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Copyright 2020 Cisco Systems
 All rights reserved.
+Remarks: QoS class-map search function included.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -54,7 +55,7 @@ def main():
 cisco-gnmi <rpc> [<args>]
 
 Version {version}
-
+** QoS class-map search version **
 Supported RPCs:
 {supported_rpcs}
 cisco-gnmi capabilities 127.0.0.1:57500
