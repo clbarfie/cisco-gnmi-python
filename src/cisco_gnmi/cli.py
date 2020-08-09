@@ -215,7 +215,7 @@ def gnmi_subscribe():
                     dump_fd.write("** Terminating program...")
                     dump_fd.close()
                     break
-                   
+            break       
     except KeyboardInterrupt:
         logging.warning("Stopping on interrupt.")
     except Exception:
