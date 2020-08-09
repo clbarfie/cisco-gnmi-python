@@ -203,8 +203,11 @@ def gnmi_subscribe():
             formatted_message = __format_message(subscribe_response)
             if args.dump_file == "stdout":
                 #Call QoS function to search class-map
-                print(gnmi_qos(formatted_message, args.cmap))
-                break
+                if not args.cmap:
+                    logging.info(formatted_message)
+                else:
+                    print(gnmi_qos(formatted_message, args.cmap))
+            break
             else:
                 with open(args.dump_file, "a") as dump_fd:
                     dump_fd.write(formatted_message)
