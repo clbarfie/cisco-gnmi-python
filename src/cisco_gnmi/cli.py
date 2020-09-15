@@ -160,6 +160,14 @@ def gnmi_subscribe():
         help="Allow class-map search and it lists respective QoS stats.",
         type=str,
     )
+    ## hardware-module argument ###########
+    parser.add_argument(
+        "-hwmod",
+        help="This lists hardware-module",
+        action="store_true",
+    )
+    
+    
     ########################################
     
     args = __common_args_handler(parser)
