@@ -163,8 +163,8 @@ def gnmi_subscribe():
     )
     ## hardware-module argument ###########
     parser.add_argument(
-        "-sensor",
-        help="This lists sensor value (temperatue, voltage).",
+        "-hwmod",
+        help="This lists hw alerts (name, category, description).",
         action="store_true",
     )
     
@@ -212,7 +212,11 @@ def gnmi_subscribe():
                 continue
             formatted_message = __format_message(subscribe_response)
             if args.dump_file == "stdout":
-                #Call QoS function to search class-map
+                if args.hwmod:
+                   print(gnmi_hwmodule(formatted_message))
+                   break
+                
+                #Call QoS function to search class-map                
                 if not args.cmap:
                     logging.info(formatted_message)
                 else:
@@ -268,7 +272,7 @@ def gnmi_qos(content, classmap_name):
 
     return result
 #######  
-def gnmi_sensor(content):
+def gnmi_hwmodule(content):
     """This will retrieve values such as temperature, FAN, voltage  """
     regex = r'json_ietf_val\: (".+")'
     r = []
@@ -277,11 +281,15 @@ def gnmi_sensor(content):
         data = json.loads(json.loads(json_str))
         r.append(data)
     
-    sensor_list = []
-    for entry in data['environment-sensor']:
-         tmp_list = [entry.get('location'), entry.get('name'), entry.get('state')] 
-         sensor_list.append(tmp_list)   
-    return sensor_list
+    alarms = []
+    for alarm in r[0]['device-hardware'].get('device-alarm', []):
+        alarms.append((
+            alarm['alarm-category'],
+            alarm['alarm-description'],
+            alarm['alarm-name']
+        ))
+    return alarms
+   
 ###########    
 def gnmi_get():
     """Provides Get RPC usage. Assumes JSON or JSON_IETF style configurations.
