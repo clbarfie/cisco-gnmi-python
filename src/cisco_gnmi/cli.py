@@ -40,6 +40,7 @@ from google.protobuf.internal import enum_type_wrapper
 import sys
 import re
 
+MAX_MESSAGE_LENGTH = 500 * 1024 ** 2
 
 def main():
     # Using a map so we don't have function overlap e.g. set()
@@ -379,9 +380,16 @@ def gnmi_set():
 
 
 def __gen_client(args):
+    
+           
     builder = ClientBuilder(args.netloc)
     builder.set_os(args.os)
     builder.set_call_authentication(args.username, args.password)
+    ###
+    builder.set_channel_option('grpc.max_send_message_length', MAX_MESSAGE_LENGTH)
+    builder.set_channel_option('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH)
+    ###
+    
     if args.insecure:
         builder._set_insecure()
     elif not any([args.root_certificates, args.private_key, args.certificate_chain]):
