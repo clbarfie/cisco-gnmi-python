@@ -396,6 +396,7 @@ def __gen_client(args):
     ###
     builder.set_channel_option('grpc.max_send_message_length', MAX_MESSAGE_LENGTH)
     builder.set_channel_option('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH)
+    print(f'********* set_channel_option {MAX_MESSAGE_LENGTH} **********************')
     ###
     
     if args.insecure:
