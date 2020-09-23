@@ -167,8 +167,14 @@ def gnmi_subscribe():
         help="This lists hw alerts (name, category, description).",
         action="store_true",
     )
-    
-    
+       
+    ########################################
+    ## sensor argument
+    parser.add_argument(
+        "-sensor",
+        help="It lists sensor information.",
+        action="store_true",
+    )
     ########################################
     
     args = __common_args_handler(parser)
@@ -215,7 +221,9 @@ def gnmi_subscribe():
                 if args.hwmod:
                    print(gnmi_hwmodule(formatted_message))
                    break
-                
+                if args.sensor:
+                   print(gnmi_sensor(formatted_message))
+                   break
                 #Call QoS function to search class-map                
                 if not args.cmap:
                     logging.info(formatted_message)
@@ -290,6 +298,19 @@ def gnmi_hwmodule(content):
         ))
     return alarms
    
+def gnmi_sensor(content):
+    regex = r'json_ietf_val\: (".+")'
+    r = []
+   
+    for json_str in re.findall(regex, content):
+        data = json.loads(json.loads(json_str))
+        r.append(data)
+  
+    sensor_list = []
+    for entry in r[0]['environment-sensor']:
+         tmp_list = [entry.get('location'), entry.get('name'), entry.get('state')] 
+         sensor_list.append(tmp_list)   
+    return sensor_list
 ###########    
 def gnmi_get():
     """Provides Get RPC usage. Assumes JSON or JSON_IETF style configurations.
