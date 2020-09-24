@@ -40,7 +40,7 @@ from google.protobuf.internal import enum_type_wrapper
 import sys
 import re
 
-MAX_MESSAGE_LENGTH = 5000 * 1024 ** 2
+MAX_MESSAGE_LENGTH = 2000 * 1024 ** 2
 
 def main():
     # Using a map so we don't have function overlap e.g. set()
