@@ -271,7 +271,7 @@ class Client(object):
     def subscribe_xpaths(
         self,
         xpath_subscriptions,
-        request_mode="STREAM",
+        request_mode="ONCE",
         sub_mode="SAMPLE",
         encoding="JSON",
         sample_interval=_NS_IN_S * 10,
