@@ -41,6 +41,7 @@ import sys
 import re
 
 MAX_MESSAGE_LENGTH = 2000 * 1024 ** 2
+MAX_INT = sys.maxint
 
 def main():
     # Using a map so we don't have function overlap e.g. set()
@@ -417,6 +418,11 @@ def __gen_client(args):
     ###
     builder.set_channel_option('grpc.max_send_message_length', MAX_MESSAGE_LENGTH)
     builder.set_channel_option('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH)
+    builder.set_channel_option('grpc.max_connection_idle_ms', MAX_INT)
+    builder.set_channel_option('grpc.client_idle_timeout_ms', MAX_INT)
+    builder.set_channel_option('grpc.max_connection_age_ms', MAX_INT)
+    builder.set_channel_option('grpc.keepalive_time_ms', MAX_INT)
+    
     print(f'********* set_channel_option {MAX_MESSAGE_LENGTH} **********************')
     ###
     
