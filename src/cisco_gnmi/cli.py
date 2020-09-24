@@ -41,7 +41,7 @@ import sys
 import re
 
 MAX_MESSAGE_LENGTH = 2000 * 1024 ** 2
-MAX_INT = sys.maxsize
+MAX_INT = 3600 * 1000
 
 def main():
     # Using a map so we don't have function overlap e.g. set()
