@@ -345,6 +345,11 @@ def gnmi_get():
         args.xpath = ["/interfaces/interface/state/counters"]
     client = __gen_client(args)
     kwargs = {}
+    ### Call QoS function to search class-map. This is so called from subscribe             
+    if args.cmap:
+        print(gnmi_qos(formatted_message, args.cmap))
+        break
+    ########
     if args.encoding:
         kwargs["encoding"] = args.encoding
     if args.data_type:
