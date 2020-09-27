@@ -348,7 +348,7 @@ def gnmi_get():
     ### Call QoS function to search class-map. This is so called from subscribe             
     if args.cmap:
         print(gnmi_qos(formatted_message, args.cmap))
-        break
+       
     ########
     if args.encoding:
         kwargs["encoding"] = args.encoding
