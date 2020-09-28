@@ -339,6 +339,14 @@ def gnmi_get():
         help="Dump as JSON instead of textual protos.",
         action="store_true",
     )
+    ######QoS 
+    parser.add_argument(
+        "-cmap", 
+        help="Allow class-map search and it lists respective QoS stats.",
+        type=str,
+    )
+    #####
+    
     args = __common_args_handler(parser)
     # Set default XPath outside of argparse due to default being persistent in argparse.
     if not args.xpath:
