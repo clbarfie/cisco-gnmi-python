@@ -353,18 +353,18 @@ def gnmi_get():
         args.xpath = ["/interfaces/interface/state/counters"]
     client = __gen_client(args)
     kwargs = {}
-    ### Call QoS function to search class-map. This is so called from subscribe             
-    if args.cmap:
-        print(gnmi_qos(formatted_message, args.cmap))
-       
-    ########
+    
     if args.encoding:
         kwargs["encoding"] = args.encoding
     if args.data_type:
         kwargs["data_type"] = args.data_type
     get_response = client.get_xpaths(args.xpath, **kwargs)
     logging.info(__format_message(get_response))
-
+    ### Call QoS function to search class-map. This is so called from subscribe             
+    if args.cmap:
+        print(gnmi_qos(__format_message(get_respose), args.cmap))
+       
+    ########
 
 def gnmi_set():
     """Provides Set RPC usage. Assumes JSON or JSON_IETF style configurations.
