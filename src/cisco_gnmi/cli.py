@@ -177,6 +177,12 @@ def gnmi_subscribe():
         action="store_true",
     )
     ########################################
+    ## bgp neighbor argument
+    parser.add_argument(
+        "-bgpn",
+        help="Lists BGP neighbors state and VRF.",
+        action="store_true",
+    )
     
     args = __common_args_handler(parser)
     # Set default XPath outside of argparse due to default being persistent in argparse.
@@ -219,6 +225,10 @@ def gnmi_subscribe():
                 continue
             formatted_message = __format_message(subscribe_response)
             if args.dump_file == "stdout":
+             
+                if args.bgpn:
+                   print(gnmi_bgpn(formatted_message))
+                   break
                 if args.hwmod:
                    print(gnmi_hwmodule(formatted_message))
                    break
@@ -312,6 +322,27 @@ def gnmi_sensor(content):
          tmp_list = [entry.get('location'), entry.get('name'), entry.get('state')] 
          sensor_list.append(tmp_list)   
     return sensor_list
+   
+   
+def gnmi_bgpn(content):
+    regex = r'json_ietf_val\: (".+")'
+    r = []
+    
+    for json_str in re.findall(regex, content):
+        data = json.loads(json.loads(json_str))
+        r.append(data)
+    neighbor_list = [] 
+ 
+    for entry in r[0]:
+        n = entry.get('neighbor-id')
+        if n:
+           tmp_list = [n, entry.get('session-state'), entry.get('vrf-name')]
+           neighbor_list.append(tmp_list)
+       
+    return neighbor_list
+ 
+ 
+ 
 ###########    
 def gnmi_get():
     """Provides Get RPC usage. Assumes JSON or JSON_IETF style configurations.
