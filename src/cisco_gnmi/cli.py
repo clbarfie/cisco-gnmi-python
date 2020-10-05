@@ -393,7 +393,7 @@ def gnmi_get():
     logging.info(__format_message(get_response))
     ### Call QoS function to search class-map. This is so called from subscribe             
     if args.cmap:
-        print(gnmi_qos(__format_message(get_respose), args.cmap))
+        print(gnmi_qos(__format_message(get_response), args.cmap))
        
     ########
 
