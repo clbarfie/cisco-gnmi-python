@@ -266,7 +266,7 @@ def gnmi_qos(content, classmap_name):
     result = {}
 
     c = 0
-    for if_data in r[0]:  
+    for if_data in r:  
                 
         diffserv_info = if_data.get('diffserv-info')
         if diffserv_info:
