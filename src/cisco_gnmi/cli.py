@@ -239,7 +239,7 @@ def gnmi_subscribe():
                 if not args.cmap:
                     logging.info(formatted_message)
                 else:
-                    print(gnmi_qos(formatted_message, args.cmap))
+                    print(gnmi_qos(formatted_message, args.cmap, "subscribe"))
                     break
             else:
                 with open(args.dump_file, "a") as dump_fd:
@@ -255,8 +255,9 @@ def gnmi_subscribe():
 ###########################################################################
 #  Search class-map and list statistics                                   #
 ###########################################################################
-def gnmi_qos(content, classmap_name):
+def gnmi_qos(content, classmap_name, option):
     regex = r'json_ietf_val\: (".+")'
+  
     r = []
    
     for json_str in re.findall(regex, content):
@@ -266,7 +267,14 @@ def gnmi_qos(content, classmap_name):
     result = {}
 
     c = 0
-    for if_data in r:  
+    data_r = ""
+    if (option == "subscribe"):
+       data_r = "r[0]"
+    else:
+       data_r = "r"
+      
+    #for if_data in r:
+    for if_data in data_r:  
                 
         diffserv_info = if_data.get('diffserv-info')
         if diffserv_info:
@@ -393,7 +401,7 @@ def gnmi_get():
     logging.info(__format_message(get_response))
     ### Call QoS function to search class-map. This is so called from subscribe             
     if args.cmap:
-        print(gnmi_qos(__format_message(get_response), args.cmap))
+        print(gnmi_qos(__format_message(get_response), args.cmap, "get"))
        
     ########
 
