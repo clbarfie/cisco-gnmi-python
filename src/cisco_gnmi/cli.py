@@ -269,9 +269,9 @@ def gnmi_qos(content, classmap_name, option):
     c = 0
     data_r = ""
     if (option == "subscribe"):
-       data_r = "r[0]"
+       data_r = r[0]
     else:
-       data_r = "r"
+       data_r = r
       
     #for if_data in r:
     for if_data in data_r:  
